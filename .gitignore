@@ -4,3 +4,4 @@ dags
 plugins
 .env
 
+!examples/*
