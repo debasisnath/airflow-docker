@@ -44,3 +44,7 @@ with DAG('group_dag', start_date=datetime(2022, 1, 1),
     [download_a, download_b, download_c] >> check_files >> [transform_a, transform_b, transform_c]
 
     
+    
+    
+     #  use taskGroup insted
+
