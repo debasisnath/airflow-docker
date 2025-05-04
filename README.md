@@ -62,3 +62,11 @@ docker compose down && docker compose --profile flower up
 - Replace the value 'true' by 'false' for the AIRFLOW__CORE__LOAD_EXAMPLES environment variables
 - Restart Airflow by typing `docker-compose down && docker-compose up -d `
 
+
+####  Concurrency, the parameters you must know!
+
+parallelism / AIRFLOW__CORE__PARALELISM
+
+max_active_tasks_per_dag / AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG
+
+max_active_runs_per_dag / AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG
