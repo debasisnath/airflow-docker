@@ -19,11 +19,11 @@ with DAG(
 	@task(outlets=[my_file])
 	def update_dataset():
 		with open(my_file.uri, "a+") as f:
-		f.write("producer update")
+			f.write("producer update")
 
 	@task(outlets=[my_file2])
 	def update_dataset2():
 		with open(my_file.uri, "a+") as f:
-		f.write("producer update 2")
+			f.write("producer update 2")
 
 	update_dataset() >> update_dataset2()

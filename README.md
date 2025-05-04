@@ -25,7 +25,7 @@ docker cp materials_airflow-scheduler_1:/opt/airflow/airflow.cfg  .
 ```
 
 
-The Celery Executor settings
+#### The Celery Executor settings
 ```bash
 
 executor=CeleryExecutor
@@ -35,6 +35,7 @@ celery_broker_url=redis://@redis:6379/0
 ```
 
 
+### Tipical containers set of Aitflow
 
 | NAME                                     | IMAGE                  | COMMAND                     | SERVICE             | CREATED     | STATUS              | PORTS                                           |
 |------------------------------------------|-------------------------|------------------------------|---------------------|-------------|---------------------|--------------------------------------------------|
@@ -44,3 +45,20 @@ celery_broker_url=redis://@redis:6379/0
 | apache-airflow-251-airflow-worker-1      | apache/airflow:2.4.2   | "/usr/bin/dumb-init …"      | airflow-worker      | 3 days ago  | Up 3 hours (healthy) | 8080/tcp                                        |
 | apache-airflow-251-postgres-1            | postgres:13            | "docker-entrypoint.s…"      | postgres            | 3 days ago  | Up 3 hours (healthy) | 5432/tcp                                        |
 | apache-airflow-251-redis-1               | redis:latest           | "docker-entrypoint.s…"      | redis               | 3 days ago  | Up 3 hours (healthy) | 6379/tcp                                        |
+
+
+#### Restart Airflow docker (with CeleryExecutor)
+
+```bash
+
+docker compose down && docker compose --profile flower up
+
+```
+
+
+#### Remove All DAG examples
+
+- Open the file docker-compose.yaml
+- Replace the value 'true' by 'false' for the AIRFLOW__CORE__LOAD_EXAMPLES environment variables
+- Restart Airflow by typing `docker-compose down && docker-compose up -d `
+
