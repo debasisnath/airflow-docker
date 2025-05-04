@@ -4,12 +4,13 @@ from airflow.operators.bash import BashOperator
  
 from datetime import datetime
  
-def _t1():
-    None
- 
-def _t2():
-    None
- 
+def _t1(ti):
+	ti.xcom_push(key="my_key", value=42)
+
+def _t2(ti):
+	print(ti.xcom_pull(key="my_key", task_ids="t1"))
+
+
 with DAG("xcom_dag", start_date=datetime(2022, 1, 1), 
     schedule_interval='@daily', catchup=False) as dag:
  
