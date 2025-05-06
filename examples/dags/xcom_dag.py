@@ -1,49 +1,49 @@
 from airflow import DAG
-from airflow.operators.python import PythonOperator
 from airflow.operators.bash import BashOperator
-from airflow.operators.python_operator import BranchPythonOperator
+from airflow.operators.python import PythonOperator
+from airflow.operators.subdag import SubDagOperator
+from airflow.utils.task_group import TaskGroup
 
+from random import uniform
 from datetime import datetime
- 
-def _t1(ti):
-    ti.xcom_push(key="my_key", value=42)
 
-def _t2(ti):
-    print(ti.xcom_pull(key="my_key", task_ids="t1"))
+default_args = {
+    'start_date': datetime(2020, 1, 1)
+}
 
-def _branch(ti):
-    value = ti.xcom_pull(key='my_key', task_ids='t1') 
-    if (value == 42):
-        return 't2'
-    return 't3'
+def _training_model():
+    accuracy = uniform(0.1, 10.0)
+    print(f'model\'s accuracy: {accuracy}')
 
-with DAG("xcom_dag", start_date=datetime(2022, 1, 1), 
-    schedule_interval='@daily', catchup=False) as dag:
- 
-    t1 = PythonOperator(
-        task_id='t1',
-        python_callable=_t1
-    )
-    branch = BranchPythonOperator(
-        task_id='branch',
-        python_callable=_branch
+def _choose_best_model():
+    print('choose best model')
+
+with DAG('xcom_dag', schedule_interval='@daily', default_args=default_args, catchup=False) as dag:
+
+    downloading_data = BashOperator(
+        task_id='downloading_data',
+        bash_command='sleep 3'
     )
 
- 
-    t2 = PythonOperator(
-        task_id='t2',
-        python_callable=_t2
-    )
- 
-    t3 = BashOperator(
-        task_id='t3',
-        bash_command="echo ''"
+    with TaskGroup('processing_tasks') as processing_tasks:
+        training_model_a = PythonOperator(
+            task_id='training_model_a',
+            python_callable=_training_model
+        )
+
+        training_model_b = PythonOperator(
+            task_id='training_model_b',
+            python_callable=_training_model
+        )
+
+        training_model_c = PythonOperator(
+            task_id='training_model_c',
+            python_callable=_training_model
+        )
+
+    choose_model = PythonOperator(
+        task_id='task_4',
+        python_callable=_choose_best_model
     )
 
-    t4 = BashOperator(
-        task_id='t4',
-        bash_command="echo ''"
-    )
- 
-    t1 >> branch >> [t2 , t3] >> t4
-
+    downloading_data >> processing_tasks >> choose_model
