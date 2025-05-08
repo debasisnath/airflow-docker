@@ -70,3 +70,23 @@ parallelism / AIRFLOW__CORE__PARALELISM
 max_active_tasks_per_dag / AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG
 
 max_active_runs_per_dag / AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG
+
+
+-  https://marclamberti.com/blog/airflow-kubernetes-executor/
+-  https://marclamberti.com/blog/how-to-use-timezones-in-apache-airflow/
+-  https://marclamberti.com/blog/airflow-bashoperator/ 
+-  https://marclamberti.com/blog/templates-macros-apache-airflow/
+-  https://marclamberti.com/blog/variables-with-apache-airflow/
+-  https://marclamberti.com/blog/apache-airflow-best-practices-1/
+-  https://marclamberti.com/blog/running-apache-airflow-locally-on-kubernetes/
+-  https://marclamberti.com/blog/the-postgresoperator-all-you-need-to-know/
+
+
+###  apache-airflow-providers-docker
+
+```bash 
+
+pip install apache-airflow-providers-docker
+```
+
+
