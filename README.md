@@ -89,4 +89,9 @@ max_active_runs_per_dag / AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG
 pip install apache-airflow-providers-docker
 ```
 
+#### MAC 
+...
+Astro cli  for mac...
 
+Use gRPC FUSE for file sharing
+...

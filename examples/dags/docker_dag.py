@@ -2,6 +2,7 @@
 
 from airflow.decorators import task, dag
 from airflow.provider.docker.operators.docker import DockerOperator 
+from docker.types import Mount
 
 from datetime import datetime
 
@@ -17,12 +18,13 @@ def docker_dag():
         container_name='task_t2',
         api_version='auto',
         image='stock_image:v1.0.0',
-        command='bash /tmp/scripts/output.sh  ',
+        command='bash /tmp/scripts/output.sh  ',  # 👈 
         docker_url='unix://var/run/docker.sock',
         network_mode='bridge',
         xcom_all=True,
         retrieve_output=True,
         retrieve_output_path='/tmp/script.out',
+        mem_limit='512m',
         auto_remove=True,
         mounts=[
             Mount(source='/Users/marclamberti/sandbox/includes/scripts', target='/tmp/sc', type="bind")
@@ -33,3 +35,5 @@ def docker_dag():
     t1() >> t2
 
 dag=docker_dag()
+
+
