@@ -95,3 +95,61 @@ Astro cli  for mac...
 
 Use gRPC FUSE for file sharing
 ...
+
+
+#### Extre videos:
+- 1: Airflow Data Pipeline with AWS and Snowflake for Beginners | Project
+   - https://www.youtube.com/watch?v=wT67h9qDl1o
+
+```text
+You can find the text version of that video and orignal DAG here:
+https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbmZjZzdEYzNZYlA0YUVqQkUwVXVYaEpaeWJwd3xBQ3Jtc0tuOVNESkxORzA1eFBTa1ItOGd2bkRzS05lTVFONEFoekxKRlhGX2VOWTgxaDZEUkdSS3dsOXJOcVJ0dWFqc2dWRkhiQW1XWDZGUEN6NTZDeW5Ud1YzUTB1T3I1NXRPUGFXd21xY21pWFI3d1dldkR3NA&q=https%3A%2F%2Fastro-sdk-python.readthedocs.io%2Fen%2Fstable%2Fgetting-started%2FGETTING_STARTED.html&v=wT67h9qDl1o
+
+➡️ Astro CLI
+docs.astronomer.io/astro/cli/install-cli
+
+[
+curl -sSL install.astronomer.io | sudo bash -s
+]
+
+[
+astro dev init
+astro dev start  
+
+]
+
+
+
+Materials:
+➡️ orders_data_header.csv
+order_id,customer_id,purchase_date,amount
+ORDER1,CUST1,1/1/2021,100
+ORDER2,CUST2,2/2/2022,200
+ORDER3,CUST3,3/3/2023,300
+
+➡️ Env vars
+
+AIRFLOW__CORE__ENABLE_XCOM_PICKLING=True
+AIRFLOW__ASTRO_SDK__SQL_SCHEMA=ASTRO_SDK_SCHEMA
+
+➡️ SQL requests
+
+CREATE DATABASE ASTRO_SDK_DB;
+CREATE WAREHOUSE ASTRO_SDK_DW;
+CREATE SCHEMA ASTRO_SDK_SCHEMA;
+
+CREATE OR REPLACE TABLE customers_table (customer_id CHAR(10), customer_name VARCHAR(100), type VARCHAR(10) );
+
+INSERT INTO customers_table (CUSTOMER_ID, CUSTOMER_NAME,TYPE) VALUES     ('CUST1','NAME1','TYPE1'),('CUST2','NAME2','TYPE1'),('CUST3','NAME3','TYPE2');
+
+CREATE OR REPLACE TABLE reporting_table (
+    CUSTOMER_ID CHAR(30), CUSTOMER_NAME VARCHAR(100), ORDER_ID CHAR(10), PURCHASE_DATE DATE, AMOUNT FLOAT, TYPE CHAR(10));
+
+INSERT INTO reporting_table (CUSTOMER_ID, CUSTOMER_NAME, ORDER_ID, PURCHASE_DATE, AMOUNT, TYPE) VALUES
+('INCORRECT_CUSTOMER_ID','INCORRECT_CUSTOMER_NAME','ORDER2','2/2/2022',200,'TYPE1'),
+('CUST3','NAME3','ORDER3','3/3/2023',300,'TYPE2'),
+('CUST4','NAME4','ORDER4','4/4/2022',400,'TYPE2');
+
+ 
+
+```
